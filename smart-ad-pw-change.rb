@@ -6,6 +6,9 @@ LDAP_AUTH_SERVER = 'hostname.com'
 # the name of your Windows domain.
 WINDOWS_DOMAIN = 'your_domain_name'
 
+# LDAP Base DN for your domain.
+BASE_DN = 'dc=company,dc=com'
+
 # number of seconds to sleep between password changes.
 # if you have problems with the script "getting ahead of AD" you
 # should probably increase this. Less than 3 seconds is probably
@@ -80,7 +83,7 @@ def ldap_change_password(login, oldpw, newpw)
   } # encoding password in format Microsoft wants
 
   # finding location of the user, as the change password operation requires the full path to the user
-  dn = ldap.search(:filter => Net::LDAP::Filter.eq('samaccountname',login), :base => 'dc=yellowpages,dc=local', :return_result => true).first.dn
+  dn = ldap.search(:filter => Net::LDAP::Filter.eq('samaccountname',login), :base => BASE_DN, :return_result => true).first.dn
 
   # Microsoft requires that in one operation, you delete the old password then add the new one.
   ops = [[:delete, :unicodePwd, encoded_oldpw],[:add, :unicodePwd, encoded_newpw]] 
