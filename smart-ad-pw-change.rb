@@ -12,6 +12,10 @@ WINDOWS_DOMAIN = 'your_domain_name'
 # not a good idea.
 sleep_time = 3
 
+# Number of times you need to cycle your password until Active
+# Directory will let you re-use one.
+cycles_needed = 8
+
 require 'etc'
 begin
   require 'net/ldap'
@@ -126,8 +130,8 @@ future_random_password = random_password(8)
 if ldap_change_password(login,password,future_random_password)
   puts "changed password to #{future_random_password}"
   current_random_password = future_random_password
-  # now cycle 8 random passwords to clear out history
-  8.times do
+  # now cycle random passwords to clear out history
+  pw_cycles_needed.times do
     future_random_password = random_password(8)
     puts "sleeping #{sleep_time} seconds so we do not get ahead of AD."
     sleep sleep_time
