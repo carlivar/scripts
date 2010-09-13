@@ -37,6 +37,8 @@ def ldap_bind(login,pass)
   end
 end
 
+# Hopefully this generates strong enough passwords for your
+# domain's password strength policy. Modify as needed otherwise.
 def random_password( len )
   upper_chars = ('a'..'z').to_a
   lower_chars = ('A'..'Z').to_a
@@ -144,8 +146,8 @@ end
 
 # finally change to desired password
 
-puts "Now a final sleep of 3 seconds..."
-sleep 3
+puts "Now a final sleep of #{sleep_time} seconds..."
+sleep sleep_time
 if ldap_change_password(login,current_random_password,newpassword)
   puts "And now your desired password is set. All done!"
 end
