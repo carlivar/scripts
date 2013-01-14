@@ -17,7 +17,7 @@ sleep_time = 3
 
 # Number of times you need to cycle your password until Active
 # Directory will let you re-use one.
-cycles_needed = 8
+pw_cycles_needed = 8
 
 require 'etc'
 begin
