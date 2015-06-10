@@ -45,21 +45,20 @@ Dir.glob(source_dir) do |dir|
     file_month = file_time.to_s[5,2]
     new_dir += "/#{file_year}"
     unless Dir.exists?(new_dir)
-      # Dir.mkdir(new_dir)
-      puts "would mkdir #{new_dir}"
+      Dir.mkdir(new_dir)
+      puts "creating directory #{new_dir}"
     end
     new_dir += "/#{file_month}"
     unless Dir.exists?(new_dir)
-      # Dir.mkdir(new_dir)
-      puts "would mkdir #{new_dir}"
+      Dir.mkdir(new_dir)
+      puts "creating directory #{new_dir}"
     end
-    if File.exists?("#{new_dir}/#{file}")
-      if Digest::MD5.file(path).hexdigest == Digest::MD5.file("#{new_dir}/#{file}").hexdigest
-        puts "not copying #{path}, file already exists. Would delete source."
-      end
+    if File.exists?("#{new_dir}/#{file}") && Digest::MD5.file(path).hexdigest == Digest::MD5.file("#{new_dir}/#{file}").hexdigest
+      puts "Deleting #{path}, file already exists."
+      File.delete(path)
     else
-      # FileUtils.mv(path, new_dir)
-      puts "would move #{path} to #{new_dir}"
+      FileUtils.mv(path, new_dir)
+      puts "moved #{path} to #{new_dir}"
     end
   end
 end
