@@ -36,11 +36,12 @@ Dir.glob(source_dir) do |dir|
     end
     if media.mime_type.to_s =~ /image/
       new_dir += photo_dest_dir
-    end
-    if media.mime_type.to_s =~ /video/
+    elsif media.mime_type.to_s =~ /video/
       new_dir += video_dest_dir
+    else
+      STDERR.puts "Unknown media type for file: #{file}"
+      next
     end
-
     file_year = file_time.to_s[0,4]
     file_month = file_time.to_s[5,2]
     new_dir += "/#{file_year}"
