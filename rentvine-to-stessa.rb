@@ -14,6 +14,16 @@ outfile = ARGV[1]
 
 def parse_category(i)
   category = case i.gsub('"','')
+  when /Grounds Maintenance/
+    "Gardening & Landscaping"
+  when "Owner Contributions"
+    "Owner Contributions"
+  when "Utilities - Water"
+    "Water & Sewer"
+  when "Cleaning"
+    "Cleaning & Janitorial"
+  when /Eviction Fee/
+    "Eviction Fees"
   when /Gas \& Electric/
     "Gas & Electric"
   when "Management Fee"
